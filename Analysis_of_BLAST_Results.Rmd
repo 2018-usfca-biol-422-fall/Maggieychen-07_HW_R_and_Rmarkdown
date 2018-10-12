@@ -173,16 +173,16 @@ joined_blast_data_metadata %>%
   ylab("number found")
 ```
 
-```{r}
+```{r counting-rows}
 # Count number of each species found and the corrolation with host
 joined_blast_data_metadata %>%
-  group_by(sscinames, host_subject_id_s) %>%
+  group_by(sscinames, sex_s) %>%
   tally() %>%
   arrange(desc(n)) %>%
-  filter(n > 200) %>%
+  filter(n > 150) %>%
   ggplot(aes(x = sscinames, 
              y = n, 
-             fill = host_subject_id_s)) + 
+             fill = sex_s)) + 
   geom_col(position = position_dodge()) + 
   theme(axis.text.x = element_text(angle = 90, 
                                    hjust = 1)) +
