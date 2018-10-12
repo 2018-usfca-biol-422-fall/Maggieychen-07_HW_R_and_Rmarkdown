@@ -1,7 +1,7 @@
 ---
 title: "Analysis of BLAST Results"
-author: "Don Francisco"
-date: "October 8, 2018"
+author: "Maggie Chen"
+date: "October 12, 2018"
 output: github_document
 ---
 
@@ -121,6 +121,27 @@ joined_blast_data_metadata <- metadata_in %>%
             by = c("Run_s" = "sample_name"))
 ```
 
+```{r show-levels}
+levels(factor(joined_blast_data_metadata$env_material_s))
+```
+
+```{r group-by-summarize}
+# group by anonyamized name and calculate mean percent identity
+joined_blast_data_metadata %>%
+  group_by(anonymized_name_s) %>%
+  summarize(mean_pident = mean(pident),
+            sd_pident = sd(pident)) %>%
+  ggplot(aes(x = anonymized_name_s, 
+             y = mean_pident)) + 
+  geom_col(fill = "dodger blue") + 
+  geom_errorbar(aes(ymax = mean_pident + sd_pident,
+                   ymin = mean_pident - sd_pident),
+               width = 0.3) + 
+  theme(axis.text.x = element_text(angle = 90, 
+                                   hjust = 1))
+**Figure1** This will be the name of the figure in markdown
+```
+
 
 ```{r histograms}
 # Here we're using the dplyr piping syntax to select a subset of rows matching a
@@ -128,13 +149,60 @@ joined_blast_data_metadata <- metadata_in %>%
 # from the data to make a histogram.
 joined_blast_data_metadata %>%
   filter(env_material_s == "sebum") %>%
+   filter(grepl("F2", host_subject_id_s)) %>%
   ggplot(aes(x = pident)) +
     geom_histogram() +
     ggtitle("Percent Identity") +
     xlab("Percent")
 ```
+```{r counting-rows}
+# Count the number of rows and group by different variables
+joined_blast_data_metadata %>%
+  group_by(sscinames, env_material_s) %>%
+  tally() %>%
+  arrange(desc(n)) %>%
+  filter(n > 300) %>%
+  ggplot(aes(x = sscinames, 
+             y = n, 
+             fill = env_material_s)) + 
+  geom_col(position = position_dodge()) + 
+  theme(axis.text.x = element_text(angle = 90, 
+                                   hjust = 1)) +
+  ggtitle("") +
+  xlab("scientific name") +
+  ylab("number found")
+```
+
+```{r}
+# Count number of each species found and the corrolation with host
+joined_blast_data_metadata %>%
+  group_by(sscinames, host_subject_id_s) %>%
+  tally() %>%
+  arrange(desc(n)) %>%
+  filter(n > 200) %>%
+  ggplot(aes(x = sscinames, 
+             y = n, 
+             fill = host_subject_id_s)) + 
+  geom_col(position = position_dodge()) + 
+  theme(axis.text.x = element_text(angle = 90, 
+                                   hjust = 1)) +
+   ggtitle("") +
+  xlab("species name") +
+  ylab("number found")
+```
+
 
 Don't forget to report what your figures show in words, here in the Results section.
+```{r dplyr-example-1}
+# Using select() to extract particular columns of data
+joined_blast_data_metadata %>% 
+  select(Organism_s, AvgSpotLen_l)
+
+# Use filter to extract certain rows that match a condition
+joined_blast_data_metadata %>% 
+  filter(env_material_s == "dust") %>% 
+  select(Organism_s, AvgSpotLen_l)
+```
 
 ```{r summary-table}
 # Finally, we'd like to be able to make a summary table of the counts of
@@ -148,4 +216,9 @@ kable(table(joined_blast_data_metadata$host_subject_id_s,
 # Discussion
 
 Add 2-3 paragraphs here interpreting your results and considering future directions one might take in analyzing these data.
+
+
+
+
+
 
