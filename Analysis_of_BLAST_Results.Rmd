@@ -128,10 +128,11 @@ levels(factor(joined_blast_data_metadata$env_material_s))
 ```{r group-by-summarize}
 # group by anonyamized name and calculate mean percent identity
 joined_blast_data_metadata %>%
-  group_by(anonymized_name_s) %>%
+  group_by(sscinames) %>%
   summarize(mean_pident = mean(pident),
             sd_pident = sd(pident)) %>%
-  ggplot(aes(x = anonymized_name_s, 
+  filter(mean_pident < 83 ) %>%
+  ggplot(aes(x = sscinames, 
              y = mean_pident)) + 
   geom_col(fill = "dodger blue") + 
   geom_errorbar(aes(ymax = mean_pident + sd_pident,
@@ -139,47 +140,61 @@ joined_blast_data_metadata %>%
                width = 0.3) + 
   theme(axis.text.x = element_text(angle = 90, 
                                    hjust = 1))
+
 **Figure1** This will be the name of the figure in markdown
 ```
 
 
-```{r histograms}
+```{r histograms-female}
 # Here we're using the dplyr piping syntax to select a subset of rows matching a
 # criteria we specify (using the filter) function, and then pull out a column
 # from the data to make a histogram.
 joined_blast_data_metadata %>%
   filter(env_material_s == "sebum") %>%
-   filter(grepl("F2", host_subject_id_s)) %>%
+   filter(grepl("F", host_subject_id_s)) %>%
+  ggplot(aes(x = pident)) +
+    geom_histogram() +
+    ggtitle("Percent Identity") +
+    xlab("Percent")
+
+```
+```{r histogram-male}
+joined_blast_data_metadata %>%
+  filter(env_material_s == "sebum") %>%
+   filter(grepl("M", host_subject_id_s)) %>%
   ggplot(aes(x = pident)) +
     geom_histogram() +
     ggtitle("Percent Identity") +
     xlab("Percent")
 ```
-```{r counting-rows}
-# Count the number of rows and group by different variables
+```{r histogram-male}
 joined_blast_data_metadata %>%
-  group_by(sscinames, env_material_s) %>%
-  tally() %>%
-  arrange(desc(n)) %>%
-  filter(n > 300) %>%
-  ggplot(aes(x = sscinames, 
-             y = n, 
-             fill = env_material_s)) + 
-  geom_col(position = position_dodge()) + 
-  theme(axis.text.x = element_text(angle = 90, 
-                                   hjust = 1)) +
-  ggtitle("") +
-  xlab("scientific name") +
-  ylab("number found")
+  filter(env_material_s == "dust") %>%
+   filter(grepl("M", host_subject_id_s)) %>%
+  ggplot(aes(x = pident)) +
+    geom_histogram() +
+    ggtitle("Percent Identity") +
+    xlab("Percent")
 ```
+```{r histogram-male}
+joined_blast_data_metadata %>%
+  filter(env_material_s == "dust") %>%
+   filter(grepl("F", host_subject_id_s)) %>%
+  ggplot(aes(x = pident)) +
+    geom_histogram() +
+    ggtitle("Percent Identity") +
+    xlab("Percent")
+```
+
 
 ```{r counting-rows}
 # Count number of each species found and the corrolation with host
+# Count the number of rows and group by different variables
 joined_blast_data_metadata %>%
   group_by(sscinames, sex_s) %>%
   tally() %>%
   arrange(desc(n)) %>%
-  filter(n > 150) %>%
+  filter(n > 155) %>%
   ggplot(aes(x = sscinames, 
              y = n, 
              fill = sex_s)) + 
@@ -192,17 +207,9 @@ joined_blast_data_metadata %>%
 ```
 
 
-Don't forget to report what your figures show in words, here in the Results section.
-```{r dplyr-example-1}
-# Using select() to extract particular columns of data
-joined_blast_data_metadata %>% 
-  select(Organism_s, AvgSpotLen_l)
 
-# Use filter to extract certain rows that match a condition
-joined_blast_data_metadata %>% 
-  filter(env_material_s == "dust") %>% 
-  select(Organism_s, AvgSpotLen_l)
-```
+Don't forget to report what your figures show in words, here in the Results section.
+
 
 ```{r summary-table}
 # Finally, we'd like to be able to make a summary table of the counts of
