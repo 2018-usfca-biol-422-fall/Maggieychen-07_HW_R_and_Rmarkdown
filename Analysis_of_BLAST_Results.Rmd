@@ -156,43 +156,29 @@ joined_blast_data_metadata %>%
 ```
 
 
-```{r histograms-female}
+
+
+```{r histogram-male}
 # Here we're using the dplyr piping syntax to select a subset of rows matching a
 # criteria we specify (using the filter) function, and then pull out a column
 # from the data to make a histogram.
 joined_blast_data_metadata %>%
-  filter(env_material_s == "sebum") %>%
-   filter(grepl("F", host_subject_id_s)) %>%
-  ggplot(aes(x = pident)) +
-    geom_histogram() +
-    ggtitle("Percent Identity female sebum") +
-    xlab("Percent")
-
-```
-```{r histogram-male}
-joined_blast_data_metadata %>%
-  filter(env_material_s == "sebum") %>%
    filter(grepl("M", host_subject_id_s)) %>%
   ggplot(aes(x = pident)) +
     geom_histogram() +
-    ggtitle("Percent Identity male sebum") +
-    xlab("Percent")
+    ggtitle("Male Percent Identity") +
+    xlab("Percent") + 
+  facet_grid(env_material_s ~ .)
 ```
-```{r histogram-male}
-joined_blast_data_metadata %>%
-  filter(env_material_s == "dust") %>%
-   filter(grepl("M", host_subject_id_s)) %>%
-  ggplot(aes(x = pident)) +
-    geom_histogram() +
-    ggtitle("Percent Identity male dust") +
-    xlab("Percent")
-```
-```{r histogram-male}
+```{r histogram-female}
+# Here we're using the dplyr piping syntax to select a subset of rows matching a
+# criteria we specify (using the filter) function, and then pull out a column
+# from the data to make a histogram.
 joined_blast_data_metadata %>%
    filter(grepl("F", host_subject_id_s)) %>%
   ggplot(aes(x = pident)) +
     geom_histogram() +
-    ggtitle("Percent Identity female dust") +
+    ggtitle("Female Percent Identity") +
     xlab("Percent") +
     facet_grid(env_material_s ~ .)
 ```
