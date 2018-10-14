@@ -143,16 +143,6 @@ joined_blast_data_metadata %>%
   tally() %>%
   arrange(desc(n)) %>%
   filter(n > 3)
-
-  ggplot(aes(x = sscinames, 
-             y = mean_pident)) + 
-  geom_col(fill = "dodger blue") + 
-  geom_errorbar(aes(ymax = mean_pident + sd_pident,
-                   ymin = mean_pident - sd_pident),
-               width = 0.3) + 
-  theme(axis.text.x = element_text(angle = 90, 
-                                   hjust = 1))
-
 **Figure1** This will be the name of the figure in markdown
 ```
 
