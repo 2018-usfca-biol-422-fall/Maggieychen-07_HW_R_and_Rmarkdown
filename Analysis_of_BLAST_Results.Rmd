@@ -141,7 +141,8 @@ joined_blast_data_metadata %>%
   filter(sscinames %in% target_pident_spp) %>%
   group_by(sscinames) %>%
   tally() %>%
-  arrange(desc(n))
+  arrange(desc(n)) %>%
+  filter(n > 3)
 
   ggplot(aes(x = sscinames, 
              y = mean_pident)) + 
