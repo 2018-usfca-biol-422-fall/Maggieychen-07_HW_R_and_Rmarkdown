@@ -22,6 +22,7 @@ Using the data gained from the sequencing in the research. Fristly, we run a qua
 And another paragraph or two here.
 
 # Results
+In order to further analyze the BLAST data, graphs are generated to illustrate different patterns and interesting findings in the data. Firstly, 'pident' is a breviation of percent identity, which presents to what percentage the sequence being found matches with the sequence in BLAST database. The lower the percentage, the less reliable the match is. In Figure2, for the bacteria species found on male plum and male touched mouse, there is a different in sequence matching qualities. 'dust' refers to the sample taken from mouse, 'sebum' refers to the data taken from huamn plum. As Figure2 demostrate, sequences from male touched mouse has a good mathcing qulatiy, in which most of the sample seuquence has 100% match. The samples of male plum, has a variation of percent identity, some are at 100% and 93%. However, most abudant are at 85%. In Figure3, the percent identity of female samples are opposit with male. The almost all the samples from female plum has 100% identity. One the other hand, samples from female touched mouse sample has concentrated at 85% identity, with some at 93% and 100% identity. In Figure1, it is a count of repeating numbers of each species that has percent identitfy between 85% and 87%. As Figure1 present, Solemya pervernicosa gill symbiont is the species that has the highest times being identified in BLAST.  
 
 ```{r load-libraries, message = FALSE}
 # Be sure to install these packages before running this script
@@ -163,6 +164,7 @@ joined_blast_data_metadata %>%
     xlab("Percent") + 
   facet_grid(env_material_s ~ .)
 ```
+Figure2.Percent identity for female plum and female mouse samples.  
 ```{r histogram-female}
 # Here we're using the dplyr piping syntax to select a subset of rows matching a
 # criteria we specify (using the filter) function, and then pull out a column
