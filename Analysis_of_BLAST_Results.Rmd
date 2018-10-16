@@ -6,16 +6,18 @@ output: github_document
 ---
 
 # Introduction
-
-Add 1-2 paragraphs here.
+This is a further reslut analysis from the research that intend to investigate whether mcirobe community on human skins
+will match the microbe community on objects touched by the same individual. Micbrobe commnunity refers to the microorgnaisms composition in a shared living space. In this research, our main focus is on the bactieral community composition. Bacteria is a type of biological cell, and it is a member of unicelluar microorgnisms group. Bacteria has various shape and length, as well as different effect to human bodies. The original research of matching microbe community compostion also has intended to serve as an additional tool of forensic examination. Forensic investigation denoting the application of scientific methods and techniques to the investigation of crime. Thus, it is possible to match the microbe community on suspect's hand with the object the suspect has touched as one form of forensic envidence. 
 
 # Methods
+
 
 ## Sample origin and sequencing
 
 Add about a paragraph here.
 
 ## Computational
+Using the data gained from the sequencing in the research. Fristly, we run a quality check on all the sequences, and this is call QuickCheck, whcih also generates an QC report with quality evaluations of the sequence based on different parameters. Then, based on the quality score of the sequence, we trimed out the low quality portions in each sequence. So far, we have only wokring on the sequence in the formate of '.fasta'. However, the final goal for this sequence processing is to use BLAST to identify different species, which only accept '.fastq' file. Thus, we use 'biowak' to convert all the trimmed sequences into '.fastq' formate. Lastly, we input all the coverted sequences into BLAST, to identify all the species in the sample we took. Overall, to process this analysis faster, the work was done on an remote machine with better cabability than personal laptop. To analyze the BLAST result, as an primary interpreation, code are wirtten to simplify and summarize the species names found. To further analyze the BLAST result, R is used to generate different graph. 
 
 And another paragraph or two here.
 
