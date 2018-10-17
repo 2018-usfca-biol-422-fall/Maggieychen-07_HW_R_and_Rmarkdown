@@ -172,7 +172,7 @@ Figure2.Sequences from male touched mouse has a good matching quality, in which 
 
 ```{r histogram-female, echo = FALSE}
 # using the dplyr piping syntax to select female using 'F'
-# in the row of  host_subject_id_s, and then pull out the column of 
+# in the row of  host_subject_id_s, and then pull out the column of
 # dust and sebum from the data to make a histogram.
 joined_blast_data_metadata %>%
    filter(grepl("F", host_subject_id_s)) %>%
@@ -188,7 +188,7 @@ Figure3. Almost all the samples from female plum has 100% identity. Samples from
 
 ```{r female-male-speceis-counting, echo = FALSE}
 # Count number of each species found and the corrolation with host
-# filter the species in each sex, dust or sebum that repeated 
+# filter the species in each sex, dust or sebum that repeated
 # more than 155 times
 joined_blast_data_metadata %>%
   mutate(sex_all_samples = substring(anonymized_name_s, 1, 1)) %>%
@@ -202,7 +202,8 @@ joined_blast_data_metadata %>%
   geom_col(position = position_dodge()) +
   theme(axis.text.x = element_text(angle = 90,
                                    hjust = 1)) +
-   ggtitle("Most frquently found species count in each sex and each locations") +
+   ggtitle("Most frquently found species
+           count in each sex and each locations") +
   xlab("species name") +
   ylab("number found") +
   facet_grid(env_material_s ~ .)
