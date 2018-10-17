@@ -6,23 +6,20 @@ output: github_document
 ---
 
 # Introduction
-This is a further reslut analysis from the research that intend to investigate whether mcirobe community on human skins
-will match the microbe community on objects touched by the same individual. Micbrobe commnunity refers to the microorgnaisms composition in a shared living space. In this research, our main focus is on the bactieral community composition. Bacteria is a type of biological cell, and it is a member of unicelluar microorgnisms group. Bacteria has various shape and length, as well as different effect to human bodies. The original research of matching microbe community compostion also has intended to serve as an additional tool of forensic examination. Forensic investigation denoting the application of scientific methods and techniques to the investigation of crime. Thus, it is possible to match the microbe community on suspect's hand with the object the suspect has touched as one form of forensic envidence. 
+  This is a further reslut analysis from the research performed by that intend to investigate whether mcirobe community on human skins will match the microbe community on objects touched by the same individual. Micbrobe commnunity refers to the microorgnaisms composition in a shared living space. In this research, the main focus is on the bactieral community composition. Bacteria is a type of biological cell, and it is a member of unicelluar microorgnisms group. Bacteria has various shape and length, as well as different effect to human bodies. The original research of matching microbe community compostion also has intention to use this method an additional tool of forensic examination. Forensic investigation denoting the application of scientific methods and techniques to the investigation of crime. Thus, it is possible to match the microbe community on suspect's hand with the object the suspect has touched as one form of forensic envidence. Overall, the sample swabing, extraction, amplification and sequencing was done by researchers from Universitu of South Columbia at Univeristy of Cororado. Then, using the sequence data and the metadata, I was able to run several more analysis on the sequence and use BLAST to identify species from the sequence. The metadata is the information about the sequence including the information about sampling individuals and sampling conditions. Basic Local Alignment Sequence Tool(BLAST), is a method using alignment to match portions in the sequence of interest with the sequence in the database, which is already unkonw for species names. 
 
 # Methods
-
-
 ## Sample origin and sequencing
-
-Add about a paragraph here.
+  For sampleing, in the smae building at University of Colorado, five healthy male and four healthy female in between age of 20 and 35 were recurited for sampling. The entire surface of each computer mouse and the palm surface of individal's dominate hand, whcih is commonly used to operate the mouse was swabbed. To ensure the sampling quality the mouse has been touched by owner within 12 h before the swabbing. Palm swabbing was done while each individual remained their typical hand hygiene practises. All swab samples are stored at -80 ºC before DNA extraction.  
+  The DNA extraction was performed using the MO BIO PowerSoil DNA isolation kit. For each smaple, the primers are optimized for the phylogenetic analysis of pyrosequencing reads. Then PCR reaction was used to amplify the sequence. If the final sequence length is less than 200 or more than 300bp in langth, or has a quality score lower than 25, or contains either ambiguous character or uncorrectable barcode, or lacking primer sequence, it will be removed from the analysis. 
 
 ## Computational
-Using the data gained from the sequencing in the research. Fristly, we run a quality check on all the sequences, and this is call QuickCheck, whcih also generates an QC report with quality evaluations of the sequence based on different parameters. Then, based on the quality score of the sequence, we trimed out the low quality portions in each sequence. So far, we have only wokring on the sequence in the formate of '.fasta'. However, the final goal for this sequence processing is to use BLAST to identify different species, which only accept '.fastq' file. Thus, we use 'biowak' to convert all the trimmed sequences into '.fastq' formate. Lastly, we input all the coverted sequences into BLAST, to identify all the species in the sample we took. Overall, to process this analysis faster, the work was done on an remote machine with better cabability than personal laptop. To analyze the BLAST result, as an primary interpreation, code are wirtten to simplify and summarize the species names found. To further analyze the BLAST result, R is used to generate different graph. 
+   To determine the distance of between paris of bacterial communities, UniFrac metric was used. This is based on the fraction of branch length shared between communities being compared within a phylogenetic tree constructed from the 16S rRNA gene, which are sequenced from all communities being compared. 
+   Additional to the analysis performed in the research project, I also run serval analysis on the sequence data. Using the data gained from the sequencing in the research. Fristly, I run a quality check on all the sequences, and this is call QuickCheck, whcih generates a QC report with quality evaluations of the sequence based on different parameters like GC content, regional quality score of the sequence. Then, based on the quality score of the sequence, I trimed out the low quality(lower than 25) portions in each sequence. So far, I have only wokring on the sequence in the formate of '.fasta'. However, the final goal for this sequence processing is to use BLAST to identify different species with in each sequence, which only accept '.fastq' file. Thus, I used 'biowak' to convert all the trimmed sequences into '.fastq' formate. Lastly, I input all the coverted sequences into BLAST, to identify all the species in the sample being took by researches. Overall, to process this analysis faster, the work was done on a remote machine with better cabability than personal laptopa. To analyze the BLAST result, as an primary interpreation, code are wirtten to count and summarize the species names found. For further analysis, R is used to generate different graph, which will be demostrated in later portion of this file.
 
-And another paragraph or two here.
 
 # Results
-In order to further analyze the BLAST data, graphs are generated to illustrate different patterns and interesting findings in the data. Firstly, 'pident' is a breviation of percent identity, which presents to what percentage the sequence being found matches with the sequence in BLAST database. The lower the percentage, the less reliable the match is. In Figure2, for the bacteria species found on male plum and male touched mouse, there is a different in sequence matching qualities. 'dust' refers to the sample taken from mouse, 'sebum' refers to the data taken from huamn plum. As Figure2 demostrate, sequences from male touched mouse has a good mathcing qulatiy, in which most of the sample seuquence has 100% match. The samples of male plum, has a variation of percent identity, some are at 100% and 93%. However, most abudant are at 85%. In Figure3, the percent identity of female samples are opposit with male. The almost all the samples from female plum has 100% identity. One the other hand, samples from female touched mouse sample has concentrated at 85% identity, with some at 93% and 100% identity. In Figure1, it is a count of repeating numbers of each species that has percent identitfy between 85% and 87%. As Figure1 present, Solemya pervernicosa gill symbiont is the species that has the highest times being identified in BLAST.  
+    In order to further analyze the BLAST data, graphs are generated to illustrate different patterns and interesting findings in the data. Firstly, 'pident' is a breviation of percent identity, which presents to what percentage the sequence being found matches with the sequence in BLAST database. The lower the percentage, the less reliable the match is. In Figure2, for the bacteria species found on male plum and male touched mouse, there is a different in sequence matching qualities. 'dust' refers to the sample taken from mouse, 'sebum' refers to the data taken from huamn palm. As Figure2 demostrate, sequences from male touched mouse has a good mathcing qulatiy, in which most of the sample seuquence has 100% match. The samples of male palm, has a variation of percent identity, some are at 100% and 93%. However, most abudant are at 85%. In Figure3, the percent identity of female samples are opposit with male. Almost all the samples from female plum has 100% identity. One the other hand, samples from female touched mouse sample has concentrated at 85% identity, with some at 93% and 100% identity. In Figure1, it is a count of repeating numbers of each species that has percent identitfy between 85% and 87%. As Figure1 presents, for species that has percent identity between 85% and 87%, Solemya pervernicosa gill symbiont is the species that has the highest times being identified in BLAST. Figure4 demostrate in both groups of mouse and plum samples, by the speration of female and male, the top 8 most frequently found species. Solemya pervernicosa gill symbiont is most frquently found speceis overall, and only found in male palm and female mouse. Bartonella washoensis is the second commonly found sepicies that is only found in male mouse and female palm. Acidovorax sp. is only found on both female and male palm. Pinus oocarpa  and Straphylococcus succinus are only found on male mouse. In table1. it is a summary of amount of species found in each indivudal's samples, including the repeating species. 
 
 ```{r load-libraries, message = FALSE}
 # Be sure to install these packages before running this script
@@ -124,9 +121,6 @@ joined_blast_data_metadata <- metadata_in %>%
             by = c("Run_s" = "sample_name"))
 ```
 
-```{r show-levels}
-levels(factor(joined_blast_data_metadata$env_material_s))
-```
 
 ```{r group-by-summarize}
 # group by anonyamized name and calculate mean percent identity
@@ -146,9 +140,9 @@ joined_blast_data_metadata %>%
   tally() %>%
   arrange(desc(n)) %>%
   filter(n > 3)
-**Figure1** This will be the name of the figure in markdown
 ```
 
+Figure1. This FIGURE illustrate that for percent identity, in the range between 85% and 87%, how many times each speceies are identifies. The most abudant match is Solemya pervernicosa gill symbiont, then Geosporobacter sp. IRF9 with a significan lower repeatation times. This figure is only showing the speceise that has more than 3 times of repetition.
 
 
 
@@ -164,7 +158,9 @@ joined_blast_data_metadata %>%
     xlab("Percent") + 
   facet_grid(env_material_s ~ .)
 ```
-Figure2.Percent identity for female plum and female mouse samples.  
+
+Figure2.Sequences from male touched mouse has a good mathcing qulatiy, in which most of the sample seuquence has 100% match. The samples of male palm, has a variation of percent identity, some are at 100% and 93%. However, the most abudant are at 85%.  
+
 ```{r histogram-female}
 # Here we're using the dplyr piping syntax to select a subset of rows matching a
 # criteria we specify (using the filter) function, and then pull out a column
@@ -178,8 +174,9 @@ joined_blast_data_metadata %>%
     facet_grid(env_material_s ~ .)
 ```
 
+Figure3. Almost all the samples from female plum has 100% identity. Samples from female touched mouse sample has concentrated at 85% identity, with some at 93% and 100% identity.
 
-```{r counting-rows}
+```{r female-male-speceis-counting}
 # Count number of each species found and the corrolation with host
 # Count the number of rows and group by different variables
 joined_blast_data_metadata %>%
@@ -200,9 +197,7 @@ joined_blast_data_metadata %>%
   facet_grid(env_material_s ~ .)
 ```
 
-
-
-Don't forget to report what your figures show in words, here in the Results section.
+Figure4. In both groups of mouse and plum samples, by the speration of female and male, the top 8 most frequently found species. Solemya pervernicosa gill symbiont is most frquently found speceis overall, and only found in male palm and female mouse. Bartonella washoensis is the second commonly found sepicies that is only found in male mouse and female palm. Acidovorax sp. is only found on both female and male palm. Pinus oocarpa  and Straphylococcus succinus are only found on male mouse. 
 
 
 ```{r summary-table}
@@ -213,11 +208,15 @@ Don't forget to report what your figures show in words, here in the Results sect
 kable(table(joined_blast_data_metadata$host_subject_id_s,
             joined_blast_data_metadata$sample_type_s))
 ```
+Table1. A summary of amount of species found in each indivudal's samples, including the repeating species. 
 
 # Discussion
 
-Add 2-3 paragraphs here interpreting your results and considering future directions one might take in analyzing these data.
+The percent identity variation was observed in both female and male sample, however, in the opposit set of samples. The high percent identify for most of sample was in the female plum and male mouse. One of the reason why is that the species Solemya pervernicosa gill symbiont as showed in Figure1, is the major cause of this variation. Due Solemya pervernicosa gill symbiont has more than two thousands idneification in all the sample and it has relativly low percent identity. According to Figure3, Solemya pervernicosa gill symbiont was only found in female mouse and male plum sample, thus, they consistantly has a peak of percent identity around 85%, while female pulm and male mouse was not affected. Solemya pervernicosa gill symbiont was not found in both male plum and male mouse, same for female. This inconsistatncy of the larges number of species being found need more experiments for further investigation. 
 
+Overall, the samples are in acceptable quality. There are several possbile reason why the Solemya pervernicosa gill symbiont has a high identification ratem with low percent identity. One is that the specicies found in the sample are not the exact same species with the BLAST database. In this case, a more detail analysis is needed to determine whether what's being found is Solemya pervernicosa gill symbiont or not. 
+
+Overall, there is very lees corrolation between the microbe community on huaman hands and object touched bysame individual. The most commonly found species has a variant location and function. 
 
 
 
